@@ -1,0 +1,34 @@
+---
+title: "SplitVotes"
+output: html_notebook
+---
+
+
+```{r}
+library(dplyr)
+library(readr)
+setwd
+absentee <- read_csv("absentee_20161108.csv")
+#View(absentee)
+```
+
+```{r}
+mail <- filter(absentee, ballot_req_type == "MAIL") #This filters to only mail-in absentee ballots
+
+#This splits by party
+dem <- filter(mail, voter_party_code == "DEM")
+rep <- filter(mail, voter_party_code == "REP")
+una <- filter(mail, voter_party_code == "UNA")
+lib <- filter(mail, voter_party_code == "LIB")
+```
+
+
+```{r}
+#This writes the new .csv by party
+write.csv(dem,"~/Desktop/Absentee/dembymail.csv", row.names = FALSE)
+write.csv(rep,"~/Desktop/Absentee/repbymail.csv", row.names = FALSE)
+write.csv(una,"~/Desktop/Absentee/unabymail.csv", row.names = FALSE)
+write.csv(lib,"~/Desktop/Absentee/libbymail.csv", row.names = FALSE)
+```
+
+
